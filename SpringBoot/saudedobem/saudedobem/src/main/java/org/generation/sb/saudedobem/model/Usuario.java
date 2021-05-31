@@ -33,7 +33,7 @@ public class Usuario {
 	private String email;
 	
 	@NotNull
-	@Size(min = 5, max = 16)
+	@Size(min = 5, max = 255)
 	private String senha;
 	
 	@NotNull
