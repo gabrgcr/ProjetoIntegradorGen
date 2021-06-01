@@ -39,7 +39,7 @@ public class Medicamento {
 	private String categoria;
 
 	@OneToMany(mappedBy = "id_medicamento")
-	private List<Venda> venda;
+	private List<Venda> vendidos;
 	
 	@ManyToMany
 	@JoinTable(name = "tb_medicamento_doenca",
@@ -87,12 +87,12 @@ public class Medicamento {
 		this.categoria = categoria;
 	}
 
-	public List<Venda> getVenda() {
-		return venda;
+	public List<Venda> getVendidos() {
+		return vendidos;
 	}
 
-	public void setVenda(List<Venda> venda) {
-		this.venda = venda;
+	public void setVendidos(List<Venda> vendidos) {
+		this.vendidos = vendidos;
 	}
 
 	public List<Doenca> getMedicamentoDoenca() {
