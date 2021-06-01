@@ -12,6 +12,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+
 @Entity
 @Table(name = "tb_usuario")
 public class Usuario {
@@ -36,12 +37,11 @@ public class Usuario {
 	@Size(min = 5, max = 255)
 	private String senha;
 	
-	@NotNull
-	@Column(columnDefinition = "ENUM('Administrador','Cliente')")
+	@Column(columnDefinition = "ENUM('Administrador','Cliente') default 'Cliente'")
 	private String tipo;
 
 	@OneToMany(mappedBy = "id_usuario")
-	private List<Venda> venda;
+	private List<Venda> compras;
 
 	public long getId() {
 		return id;
@@ -91,12 +91,12 @@ public class Usuario {
 		this.tipo = tipo;
 	}
 
-	public List<Venda> getVenda() {
-		return venda;
+	public List<Venda> getCompras() {
+		return compras;
 	}
 
-	public void setVenda(List<Venda> venda) {
-		this.venda = venda;
+	public void setCompras(List<Venda> compras) {
+		this.compras = compras;
 	}
-	
+
 }
