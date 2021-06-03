@@ -1,5 +1,6 @@
 package org.generation.sb.saudedobem.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -29,11 +30,11 @@ public class Doenca {
 	private String descricao;
 
 	@NotNull
-	@Column(columnDefinition = "TINYINT")
+	@Column(columnDefinition = "TINYINT(1)")
 	private String transmissivel;
 
 	@ManyToMany(mappedBy = "medicamentoDoenca")
-	private List<Medicamento> medicamento;
+	private List<Medicamento> medicamento = new ArrayList<>();
 
 	public long getId() {
 		return id;

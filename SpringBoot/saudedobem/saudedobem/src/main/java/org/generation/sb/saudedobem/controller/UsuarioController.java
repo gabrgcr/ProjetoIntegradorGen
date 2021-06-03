@@ -18,43 +18,38 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1/usuarios")
+@RequestMapping("/usuarios")
 public class UsuarioController {
 
 	@Autowired
 	private UsuarioService usuarioService;
 	
 	@GetMapping
-	public ResponseEntity<List<Usuario>> findAll(Usuario usuario) {
-		return usuarioService.findAll(usuario);
+	public ResponseEntity<List<Usuario>> findAll() {
+		return usuarioService.findAll();
 	}
 	
-	@GetMapping(path = "/search", params = "id")
+	@GetMapping(path = "/buscar", params = "id")
 	public ResponseEntity<Usuario> findById(@RequestParam long id) {
 		return usuarioService.findById(id);
 	}
-	
-	@GetMapping(path = "/search", params = "usuario")
-	public ResponseEntity<Usuario> findByUsuario(@RequestParam String usuario) {
-		return usuarioService.findByUsuario(usuario);
-	}
-	
-	@GetMapping(path = "/search", params = "email")
+		
+	@GetMapping(path = "/buscar", params = "email")
 	public ResponseEntity<Usuario> findByEmail(@RequestParam String email) {
 		return usuarioService.findByEmail(email);
 	}
 	
-	@PostMapping(path = "/add")
+	@PostMapping(path = "/cadastrar")
 	public ResponseEntity<Usuario> saveUsuario(@Valid @RequestBody Usuario usuario) {
 		return usuarioService.saveUsuario(usuario);
 	}
 	
-	@PutMapping(path = "/updt")
+	@PutMapping(path = "/alterar")
 	public ResponseEntity<Usuario> updateUsuario(@Valid @RequestBody Usuario usuario) {
 		return usuarioService.updateUsuario(usuario);
 	}
 	
-	@DeleteMapping(path = "/del", params = "id")
+	@DeleteMapping(path = "/deletar", params = "id")
 	public ResponseEntity<Usuario> deleteUsuario(@RequestParam long id) {
 		return usuarioService.deleteUsuario(id);
 	}

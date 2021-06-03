@@ -13,6 +13,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -39,7 +40,7 @@ public class Medicamento {
 	private String categoria;
 
 	@OneToMany(mappedBy = "id_medicamento")
-	private List<Venda> vendidos;
+	private List<Venda> vendidos = new ArrayList<>();
 	
 	@ManyToMany
 	@JoinTable(name = "tb_medicamento_doenca",

@@ -26,8 +26,8 @@ public class Usuario {
 	private String nome;
 	
 	@NotNull
-	@Size(min = 5, max = 20)
-	private String usuario;
+	@Size(max = 50)
+	private String apelido;
 	
 	@NotNull
 	@Size(min = 6, max = 100)
@@ -37,7 +37,7 @@ public class Usuario {
 	@Size(min = 5, max = 255)
 	private String senha;
 	
-	@Column(columnDefinition = "ENUM('Administrador','Cliente') default 'Cliente'")
+	@Column(columnDefinition = "ENUM('Administrador','Cliente')")
 	private String tipo;
 
 	@OneToMany(mappedBy = "id_usuario")
@@ -59,12 +59,12 @@ public class Usuario {
 		this.nome = nome;
 	}
 
-	public String getUsuario() {
-		return usuario;
+	public String getApelido() {
+		return apelido;
 	}
 
-	public void setUsuario(String usuario) {
-		this.usuario = usuario;
+	public void setApelido(String apelido) {
+		this.apelido = apelido;
 	}
 
 	public String getEmail() {
