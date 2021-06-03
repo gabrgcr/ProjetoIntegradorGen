@@ -1,5 +1,6 @@
 package org.generation.sb.saudedobem.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -11,7 +12,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
 
 @Entity
 @Table(name = "tb_usuario")
@@ -26,8 +26,8 @@ public class Usuario {
 	private String nome;
 	
 	@NotNull
-	@Size(min = 5, max = 20)
-	private String usuario;
+	@Size(max = 50)
+	private String apelido;
 	
 	@NotNull
 	@Size(min = 6, max = 100)
@@ -37,11 +37,11 @@ public class Usuario {
 	@Size(min = 5, max = 255)
 	private String senha;
 	
-	@Column(columnDefinition = "ENUM('Administrador','Cliente') default 'Cliente'")
+	@Column(columnDefinition = "ENUM('Administrador','Cliente')")
 	private String tipo;
 
 	@OneToMany(mappedBy = "id_usuario")
-	private List<Venda> compras;
+	private List<Venda> compras = new ArrayList<>();
 
 	public long getId() {
 		return id;
@@ -59,12 +59,12 @@ public class Usuario {
 		this.nome = nome;
 	}
 
-	public String getUsuario() {
-		return usuario;
+	public String getApelido() {
+		return apelido;
 	}
 
-	public void setUsuario(String usuario) {
-		this.usuario = usuario;
+	public void setApelido(String apelido) {
+		this.apelido = apelido;
 	}
 
 	public String getEmail() {
