@@ -1,5 +1,6 @@
 package org.generation.sb.saudedobem.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -11,7 +12,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
 
 @Entity
 @Table(name = "tb_usuario")
@@ -41,7 +41,7 @@ public class Usuario {
 	private String tipo;
 
 	@OneToMany(mappedBy = "id_usuario")
-	private List<Venda> compras;
+	private List<Venda> compras = new ArrayList<>();
 
 	public long getId() {
 		return id;
