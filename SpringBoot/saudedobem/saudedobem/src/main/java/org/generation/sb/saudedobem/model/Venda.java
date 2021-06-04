@@ -25,15 +25,17 @@ public class Venda {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@ManyToOne
-	@JoinColumn(name = "fk_medicamento")
-	@JsonIgnoreProperties("vendidos")
-	private Medicamento medicamento;
-	
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "fk_usuario")
 	@JsonIgnoreProperties("compras")
 	private Usuario usuario;
+	
+	@NotNull
+	@ManyToOne
+	@JoinColumn(name = "fk_medicamento")
+	@JsonIgnoreProperties({"vendidos","doencas"})
+	private Medicamento medicamento;
 	
 	@NotNull
 	@NotBlank
