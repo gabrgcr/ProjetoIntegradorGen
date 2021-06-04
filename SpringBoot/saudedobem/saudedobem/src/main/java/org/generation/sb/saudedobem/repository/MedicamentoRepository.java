@@ -11,7 +11,7 @@ public interface MedicamentoRepository extends JpaRepository<Medicamento, Long> 
 
 	public List<Medicamento> findAllByNomeContaining(String nome);
 	
-	public List<Medicamento> findByNomeAndCategoriaAndId(String nome, String categoria, long id);
-	
 	public List<Medicamento> findByNomeAndCategoria(String nome, String categoria);
+	
+	public List<Medicamento> findByNomeAndCategoriaAndId(String nome, String categoria, long id);
 }

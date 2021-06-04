@@ -15,16 +15,25 @@ public class DoencaService {
 	@Autowired
 	private DoencaRepository doencaRepository;
 	
+	/**
+	 * Metodo para buscar todas as doenças
+	 * @return ResponseEntity com o status HTTP da requisição e uma lista com as doenças
+	 */
 	public ResponseEntity<List<Doenca>> findAll() {
-		List<Doenca> listaTodos = doencaRepository.findAll();
-		if (listaTodos.isEmpty()) {
+		List<Doenca> listaDoenca = doencaRepository.findAll();
+		if (listaDoenca.isEmpty()) {
 			return ResponseEntity.status(204).build();
 		} else {
-			return ResponseEntity.status(200).body(listaTodos);
+			return ResponseEntity.status(200).body(listaDoenca);
 		}
 	}
 	
-	public ResponseEntity<Doenca> saveOrUpdateDoenca(Doenca novaDoenca) {
+	/**
+	 * Metodo para salvar ou alterar uma doença na base de dados
+	 * @param novaDoenca
+	 * @return ResponseEntity com o status HTTP da requisição e a nova doença cadastrada ou alterada
+	 */
+	public ResponseEntity<Doenca> saveDoenca(Doenca novaDoenca) {
 		if (novaDoenca.getNome().isBlank()) {
 			return ResponseEntity.status(400).build();
 		} else {
@@ -37,8 +46,34 @@ public class DoencaService {
 		}
 	}
 	
+	
+	
+	public ResponseEntity<Doenca> updateDoenca(Doenca alterDoenca) {
+		if (alterDoenca.getNome().isBlank()) {
+			return ResponseEntity.status(400).build();
+		} else {
+			
+		List<Doenca> nomePertenceId = doencaRepository.findByNomeAndId(alterDoenca.getNome(), alterDoenca.getId());
+		Optional<Doenca> doencaExiste = doencaRepository.findByNome(alterDoenca.getNome());
+		
+		if (nomePertenceId.isEmpty()) {
+			if (doencaExiste.isEmpty()) {
+				return ResponseEntity.status(200).body(doencaRepository.save(alterDoenca));
+			} else {
+				return ResponseEntity.status(409).build();
+			}
+		} else {
+			return ResponseEntity.status(200).body(doencaRepository.save(alterDoenca));
+		}
+		}
+	}
+	/**
+	 * Metodo para deletar uma doença correspondente ao ID
+	 * @param id
+	 * @return ResponseEntity com o status HTTP da requisição
+	 */
 	public ResponseEntity<Doenca> deleteDoenca(Long id){
-		if(doencaRepository.findById(id).isPresent()) {
+		if(doencaRepository.existsById(id)) {
 			doencaRepository.deleteById(id);
 		} else {
 			return ResponseEntity.status(404).build();

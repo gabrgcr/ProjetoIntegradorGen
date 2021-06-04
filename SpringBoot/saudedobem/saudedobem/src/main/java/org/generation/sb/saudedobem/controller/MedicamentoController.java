@@ -30,12 +30,12 @@ public class MedicamentoController {
 	}
 	
 	@GetMapping(path = "/buscar", params = "id")
-	public ResponseEntity<Medicamento> findById(@RequestParam long id) {
+	public ResponseEntity<Medicamento> findById(@Valid @RequestParam long id) {
 		return medicamentoService.findById(id);
 	}
 		
 	@GetMapping(path = "/buscar", params = "nome")
-	public ResponseEntity<List<Medicamento>> findByNome(@RequestParam String nome) {
+	public ResponseEntity<List<Medicamento>> findByNome(@Valid @RequestParam String nome) {
 		return medicamentoService.findByNome(nome);
 	}
 	
@@ -50,7 +50,7 @@ public class MedicamentoController {
 	}
 	
 	@DeleteMapping(path = "/deletar", params = "id")
-	public ResponseEntity<Medicamento> deleteMedicamento(@RequestParam long id) {
+	public ResponseEntity<Medicamento> deleteMedicamento(@Valid @RequestParam long id) {
 		return medicamentoService.deleteMedicamento(id);
 	}
 	
