@@ -22,7 +22,7 @@ public class Doenca {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 
 	@NotNull
 	@NotBlank
@@ -43,11 +43,11 @@ public class Doenca {
 	@JsonIgnoreProperties({"vendidos", "doencas"})
 	private List<Medicamento> medicamentos = new ArrayList<>();
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -82,5 +82,7 @@ public class Doenca {
 	public void setMedicamentos(List<Medicamento> medicamentos) {
 		this.medicamentos = medicamentos;
 	}
+
+	
 	
 }
