@@ -10,8 +10,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "tb_usuario")
@@ -22,25 +25,31 @@ public class Usuario {
 	private long id;
 	
 	@NotNull
+	@NotBlank
 	@Size(max = 255)
 	private String nome;
 	
 	@NotNull
+	@NotBlank
 	@Size(max = 50)
 	private String apelido;
 	
 	@NotNull
+	@NotBlank
 	@Size(min = 6, max = 100)
 	private String email;
 	
 	@NotNull
+	@NotBlank
 	@Size(min = 5, max = 255)
 	private String senha;
 	
+	@NotNull
 	@Column(columnDefinition = "ENUM('Administrador','Cliente')")
 	private String tipo;
 
-	@OneToMany(mappedBy = "id_usuario")
+	@OneToMany(mappedBy = "usuario")
+	@JsonIgnoreProperties("usuario")
 	private List<Venda> compras = new ArrayList<>();
 
 	public long getId() {

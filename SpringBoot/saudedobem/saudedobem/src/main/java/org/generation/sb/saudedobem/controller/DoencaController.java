@@ -2,6 +2,8 @@ package org.generation.sb.saudedobem.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.generation.sb.saudedobem.model.Doenca;
 import org.generation.sb.saudedobem.service.DoencaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,18 +29,18 @@ public class DoencaController {
 		return doencaService.findAll();
 	}
 
-	@PostMapping
-	public ResponseEntity<Doenca> postDoenca(@RequestBody Doenca doenca){
-		return doencaService.saveOrUpdateDoenca(doenca);
+	@PostMapping("/cadastrar")
+	public ResponseEntity<Doenca> postDoenca(@Valid @RequestBody Doenca doenca){
+		return doencaService.saveDoenca(doenca);
 	}
 	
-	@PutMapping
-	public ResponseEntity<Doenca> putDoenca(@RequestBody Doenca doenca) {
-		return doencaService.saveOrUpdateDoenca(doenca);
+	@PutMapping("/alterar")
+	public ResponseEntity<Doenca> putDoenca(@Valid @RequestBody Doenca doenca) {
+		return doencaService.updateDoenca(doenca);
 	}
 	
-	@DeleteMapping(params = "id")
-	public ResponseEntity<Doenca> deleteDoenca(@RequestParam Long id){
+	@DeleteMapping(path = "/deletar", params = "id")
+	public ResponseEntity<Doenca> deleteDoenca(@Valid @RequestParam Long id){
 		return doencaService.deleteDoenca(id);
 	}
 	

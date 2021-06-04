@@ -1,5 +1,8 @@
 package org.generation.sb.saudedobem.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,11 +13,11 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "tb_medicamento")
@@ -22,37 +25,43 @@ public class Medicamento {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 
 	@NotNull
+	@NotBlank
 	@Size(max = 100)
 	private String nome;
 
 	@NotNull
+	@NotBlank
 	@Size(max = 255)
 	private String descricao;
 
 	@NotNull
-	private double preco;
+	private Double preco;
 
 	@NotNull
+	@NotBlank
 	@Column(columnDefinition = "ENUM('Referência','Genérico','Similar')")
 	private String categoria;
-
-	@OneToMany(mappedBy = "id_medicamento")
+	
+	@OneToMany(mappedBy = "medicamento")
+	@JsonIgnoreProperties({"usuario", "medicamento", "endereco", "data"})
 	private List<Venda> vendidos = new ArrayList<>();
 	
-	@ManyToMany
+	@ManyToMany // É possivel deletar apenas o medicamento, sem deletar as doenças junto.
+				//porem, não é possivel deletar doenças que possuem medicamentos associados
 	@JoinTable(name = "tb_medicamento_doenca",
 		joinColumns = @JoinColumn(name = "fk_medicamento"),
 		inverseJoinColumns = @JoinColumn(name = "fk_doenca"))
-	private List<Doenca> medicamentoDoenca;
+	@JsonIgnoreProperties("medicamentos")
+	private List<Doenca> doencas;
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -72,11 +81,11 @@ public class Medicamento {
 		this.descricao = descricao;
 	}
 
-	public double getPreco() {
+	public Double getPreco() {
 		return preco;
 	}
 
-	public void setPreco(double preco) {
+	public void setPreco(Double preco) {
 		this.preco = preco;
 	}
 
@@ -96,12 +105,12 @@ public class Medicamento {
 		this.vendidos = vendidos;
 	}
 
-	public List<Doenca> getMedicamentoDoenca() {
-		return medicamentoDoenca;
+	public List<Doenca> getDoencas() {
+		return doencas;
 	}
 
-	public void setMedicamentoDoenca(List<Doenca> medicamentoDoenca) {
-		this.medicamentoDoenca = medicamentoDoenca;
+	public void setDoencas(List<Doenca> doencas) {
+		this.doencas = doencas;
 	}
 
 }

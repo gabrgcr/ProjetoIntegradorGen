@@ -10,8 +10,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "tb_doenca")
@@ -22,19 +25,23 @@ public class Doenca {
 	private long id;
 
 	@NotNull
+	@NotBlank
 	@Size(max = 100)
 	private String nome;
 
 	@NotNull
+	@NotBlank
 	@Size(max = 255)
 	private String descricao;
 
 	@NotNull
+	@NotBlank
 	@Column(columnDefinition = "TINYINT(1)")
 	private String transmissivel;
 
-	@ManyToMany(mappedBy = "medicamentoDoenca")
-	private List<Medicamento> medicamento = new ArrayList<>();
+	@ManyToMany(mappedBy = "doencas")
+	@JsonIgnoreProperties({"vendidos", "doencas"})
+	private List<Medicamento> medicamentos = new ArrayList<>();
 
 	public long getId() {
 		return id;
@@ -68,12 +75,12 @@ public class Doenca {
 		this.transmissivel = transmissivel;
 	}
 
-	public List<Medicamento> getMedicamento() {
-		return medicamento;
+	public List<Medicamento> getMedicamentos() {
+		return medicamentos;
 	}
 
-	public void setMedicamento(List<Medicamento> medicamento) {
-		this.medicamento = medicamento;
+	public void setMedicamentos(List<Medicamento> medicamentos) {
+		this.medicamentos = medicamentos;
 	}
 	
 }

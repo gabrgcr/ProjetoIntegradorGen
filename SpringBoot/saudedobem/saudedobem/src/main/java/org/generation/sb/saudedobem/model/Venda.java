@@ -11,8 +11,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "tb_venda")
@@ -24,13 +27,16 @@ public class Venda {
 	
 	@ManyToOne
 	@JoinColumn(name = "fk_medicamento")
-	private Medicamento id_medicamento;
+	@JsonIgnoreProperties("vendidos")
+	private Medicamento medicamento;
 	
 	@ManyToOne
 	@JoinColumn(name = "fk_usuario")
-	private Usuario id_usuario;
+	@JsonIgnoreProperties("compras")
+	private Usuario usuario;
 	
 	@NotNull
+	@NotBlank
 	@Size(max = 255)
 	private String endereco;
 	
@@ -45,20 +51,20 @@ public class Venda {
 		this.id = id;
 	}
 
-	public Medicamento getId_medicamento() {
-		return id_medicamento;
+	public Medicamento getMedicamento() {
+		return medicamento;
 	}
 
-	public void setId_medicamento(Medicamento id_medicamento) {
-		this.id_medicamento = id_medicamento;
+	public void setMedicamento(Medicamento medicamento) {
+		this.medicamento = medicamento;
 	}
 
-	public Usuario getId_usuario() {
-		return id_usuario;
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
-	public void setId_usuario(Usuario id_usuario) {
-		this.id_usuario = id_usuario;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	public String getEndereco() {
