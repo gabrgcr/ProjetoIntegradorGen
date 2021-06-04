@@ -71,7 +71,7 @@ public class UsuarioService {
 	 * Metodo para alterar o usuario, inspecionando se o email pertence a ele mesmo, caso não pertença e o novo email não existe, é feita a alteração
 	 * dando a ele um nome email
 	 * @param usuario
-	 * @return Um ResponseEntity com o status HTTP com o alteração do email ou de outro campo
+	 * @return ResponseEntity com o status HTTP com o alteração do email ou de outro campo
 	 */
 	public ResponseEntity<Usuario> updateUsuario(Usuario alterUsuario) {
 		Optional<Usuario> emailExiste = usuarioRepository.findByEmail(alterUsuario.getEmail());
@@ -101,13 +101,11 @@ public class UsuarioService {
 	 * @param id
 	 * @return ResponseEntity com o status HTTP da requisição
 	 */
-	public ResponseEntity<Usuario> deleteUsuario(long id) {
-		Optional<Usuario> idExiste = usuarioRepository.findById(id);
-		
-		if (idExiste.isEmpty()) {
-			return ResponseEntity.status(404).build();
-		} else {
+	public ResponseEntity<Usuario> deleteUsuario(long id) {	
+		if (usuarioRepository.existsById(id)) {
 			usuarioRepository.deleteById(id);
+		} else {
+			return ResponseEntity.status(404).build();
 		}
 		return null;
 	}

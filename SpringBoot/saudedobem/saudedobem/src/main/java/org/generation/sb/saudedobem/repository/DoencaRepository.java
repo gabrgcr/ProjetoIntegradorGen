@@ -1,5 +1,6 @@
 package org.generation.sb.saudedobem.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.generation.sb.saudedobem.model.Doenca;
@@ -10,4 +11,6 @@ import org.springframework.stereotype.Repository;
 public interface DoencaRepository extends JpaRepository<Doenca, Long> {
 
 	public Optional<Doenca> findByNome(String nome);
+	
+	public List<Doenca> findByNomeAndId(String nome, long id);
 }

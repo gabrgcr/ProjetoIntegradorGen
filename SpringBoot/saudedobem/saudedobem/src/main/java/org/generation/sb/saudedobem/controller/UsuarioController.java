@@ -30,12 +30,12 @@ public class UsuarioController {
 	}
 	
 	@GetMapping(path = "/buscar", params = "id")
-	public ResponseEntity<Usuario> findById(@RequestParam long id) {
+	public ResponseEntity<Usuario> findById(@Valid @RequestParam long id) {
 		return usuarioService.findById(id);
 	}
 		
 	@GetMapping(path = "/buscar", params = "email")
-	public ResponseEntity<Usuario> findByEmail(@RequestParam String email) {
+	public ResponseEntity<Usuario> findByEmail(@Valid @RequestParam String email) {
 		return usuarioService.findByEmail(email);
 	}
 	
@@ -50,7 +50,7 @@ public class UsuarioController {
 	}
 	
 	@DeleteMapping(path = "/deletar", params = "id")
-	public ResponseEntity<Usuario> deleteUsuario(@RequestParam long id) {
+	public ResponseEntity<Usuario> deleteUsuario(@Valid @RequestParam long id) {
 		return usuarioService.deleteUsuario(id);
 	}
 }
