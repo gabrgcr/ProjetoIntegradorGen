@@ -35,9 +35,8 @@ public class Doenca {
 	private String descricao;
 
 	@NotNull
-	@NotBlank
 	@Column(columnDefinition = "TINYINT(1)")
-	private String transmissivel;
+	private Boolean transmissivel;
 
 	@ManyToMany(mappedBy = "doencas")
 	@JsonIgnoreProperties({"vendidos", "doencas"})
@@ -67,11 +66,11 @@ public class Doenca {
 		this.descricao = descricao;
 	}
 
-	public String getTransmissivel() {
+	public Boolean getTransmissivel() {
 		return transmissivel;
 	}
 
-	public void setTransmissivel(String transmissivel) {
+	public void setTransmissivel(Boolean transmissivel) {
 		this.transmissivel = transmissivel;
 	}
 
@@ -82,7 +81,5 @@ public class Doenca {
 	public void setMedicamentos(List<Medicamento> medicamentos) {
 		this.medicamentos = medicamentos;
 	}
-
-	
 	
 }
