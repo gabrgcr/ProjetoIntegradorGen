@@ -1,4 +1,3 @@
-## USE db_sb;
 INSERT INTO tb_doenca (nome, descricao, transmissivel) VALUES ("Diabetes", "evitar açúcar", 0);
 INSERT INTO tb_doenca (nome, descricao, transmissivel) VALUES ("Asma", "Inflamação das vias aéreas", 0);
 INSERT INTO tb_doenca (nome, descricao, transmissivel) VALUES ("Cancer", "Aumento das células cancerigenas", 0);
