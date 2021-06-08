@@ -1,12 +1,16 @@
 package org.generation.sb.saudedobem.service;
 
+import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.commons.codec.binary.Base64;
+import org.generation.sb.saudedobem.model.UserLogin;
 import org.generation.sb.saudedobem.model.Usuario;
 import org.generation.sb.saudedobem.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -47,6 +51,27 @@ public class UsuarioService {
 		return usuarioRepository.findByEmail(email).map(resp -> ResponseEntity.status(200).body(resp))
 				.orElse(ResponseEntity.status(404).build());
 	}
+	public Optional<UserLogin> login(Optional<UserLogin> user) {
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		Optional<Usuario> usuario= usuarioRepository.findByEmail(user.get().getEmail());
+		
+		if (usuario.isPresent()) {
+			if(encoder.matches(user.get().getSenha(),usuario.get().getSenha())) {
+				
+				String auth= user.get().getEmail() +":" + user.get().getSenha();
+				byte[] encoderAuth = Base64.encodeBase64(auth.getBytes(Charset.forName("US-ASCII")));
+				String authHeader ="Basic "+ new String (encoderAuth);
+				
+				user.get().setToken(authHeader);
+				user.get().setNome(usuario.get().getNome());
+				
+				return user;
+			}
+		}
+		return null;
+	}
+
+	 
 	
 	/**
 	 * Metodo para salvar um usuario caso ele não existe no banco de dados
@@ -61,6 +86,8 @@ public class UsuarioService {
 		}
 		
 		if (emailExistente.isEmpty()) {
+			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+			novoUsuario.setSenha(encoder.encode(novoUsuario.getSenha()));
 			return ResponseEntity.status(201).body(usuarioRepository.save(novoUsuario));
 		} else {
 			return ResponseEntity.status(406).build();
