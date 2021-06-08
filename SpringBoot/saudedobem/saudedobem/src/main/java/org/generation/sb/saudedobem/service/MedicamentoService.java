@@ -59,7 +59,7 @@ public class MedicamentoService{
 		
 		if (categoriaValida.equals("Referência")
 				|| categoriaValida.equals("Genérico")
-				|| categoriaValida.equals("Similar")) {
+				|| categoriaValida.equals("Similar")){
 			valido = true;
 		} else {
 			valido = false;
