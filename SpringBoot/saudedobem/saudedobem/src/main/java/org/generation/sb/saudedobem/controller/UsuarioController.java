@@ -1,12 +1,15 @@
 package org.generation.sb.saudedobem.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.generation.sb.saudedobem.model.UserLogin;
 import org.generation.sb.saudedobem.model.Usuario;
 import org.generation.sb.saudedobem.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,6 +40,11 @@ public class UsuarioController {
 	@GetMapping(path = "/buscar", params = "email")
 	public ResponseEntity<Usuario> findByEmail(@Valid @RequestParam String email) {
 		return usuarioService.findByEmail(email);
+	}
+	
+	@PostMapping("/login")
+	public ResponseEntity<UserLogin> Autentication(@RequestBody Optional<UserLogin> user) {
+		return usuarioService.login(user).map(resp -> ResponseEntity.ok(resp)).orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
 	}
 	
 	@PostMapping(path = "/cadastrar")
