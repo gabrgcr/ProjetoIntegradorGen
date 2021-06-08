@@ -6,24 +6,20 @@ import org.generation.sb.saudedobem.model.Usuario;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-public class UserDetailsImpl implements UserDetails{
-	
-	
+public class UserDetailsImpl implements UserDetails {
 	private static final long serialVersionUID = 1L;
 	
 	private String email;
 	private String password;
 	
-
 	public UserDetailsImpl (Usuario user) {
 		this.email = user.getEmail();
 		this.password = user.getSenha();
-		
 	}
 	
 	public UserDetailsImpl() {
-		
 	}
+	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub

@@ -1,12 +1,15 @@
 package org.generation.sb.saudedobem.model;
 
+import javax.validation.constraints.NotBlank;
 
 public class UserLogin {
 
 	private String nome;
 	
+	@NotBlank
 	private String email;
 	
+	@NotBlank
 	private String senha;
 	
 	private String token;
@@ -42,6 +45,5 @@ public class UserLogin {
 	public void setToken(String token) {
 		this.token = token;
 	}
-	
 	
 }

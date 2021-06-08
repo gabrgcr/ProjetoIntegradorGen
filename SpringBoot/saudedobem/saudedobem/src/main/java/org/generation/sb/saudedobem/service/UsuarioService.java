@@ -51,28 +51,33 @@ public class UsuarioService {
 		return usuarioRepository.findByEmail(email).map(resp -> ResponseEntity.status(200).body(resp))
 				.orElse(ResponseEntity.status(404).build());
 	}
-	public Optional<UserLogin> login(Optional<UserLogin> user) {
+	
+	/**
+	 * Metodo para efetuar um login de usuario dando a ele um token para acessar o sistema
+	 * @param user
+	 * @return ResponseEntity com o status HTTP da requisição e o usuario logado, informando o seu token
+	 */
+	public ResponseEntity<UserLogin> login(UserLogin user) {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		Optional<Usuario> usuario= usuarioRepository.findByEmail(user.get().getEmail());
+		Optional<Usuario> usuario= usuarioRepository.findByEmail(user.getEmail());
 		
 		if (usuario.isPresent()) {
-			if(encoder.matches(user.get().getSenha(),usuario.get().getSenha())) {
+			if(encoder.matches(user.getSenha(), usuario.get().getSenha())) {
 				
-				String auth= user.get().getEmail() +":" + user.get().getSenha();
+				String auth = user.getEmail() + ":" + user.getSenha();
 				byte[] encoderAuth = Base64.encodeBase64(auth.getBytes(Charset.forName("US-ASCII")));
-				String authHeader ="Basic "+ new String (encoderAuth);
+				String authHeader = "Basic "+ new String (encoderAuth);
 				
-				user.get().setToken(authHeader);
-				user.get().setNome(usuario.get().getNome());
+				user.setToken(authHeader);
+				user.setNome(usuario.get().getNome());
 				
-				return user;
+				return ResponseEntity.status(202).body(user);
 			}
 		}
-		return null;
+		return ResponseEntity.status(401).build();
 	}
 
-	 
-	
+
 	/**
 	 * Metodo para salvar um usuario caso ele não existe no banco de dados
 	 * @param usuario
