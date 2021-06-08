@@ -49,6 +49,7 @@ public class Medicamento {
 	@JsonIgnoreProperties({"usuario", "medicamento", "endereco", "data"})
 	private List<Venda> vendidos = new ArrayList<>();
 	
+	@NotNull
 	@ManyToMany // É possivel deletar apenas o medicamento, sem deletar as doenças junto.
 				//porem, não é possivel deletar doenças que possuem medicamentos associados
 	@JoinTable(name = "tb_medicamento_doenca",
