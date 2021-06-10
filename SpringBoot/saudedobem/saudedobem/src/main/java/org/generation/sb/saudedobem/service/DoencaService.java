@@ -29,7 +29,7 @@ public class DoencaService {
 	}
 	
 	/**
-	 * Metodo para salvar ou alterar uma doença na base de dados
+	 * Metodo para salvar uma doença na base de dados
 	 * @param novaDoenca
 	 * @return ResponseEntity com o status HTTP da requisição e a nova doença cadastrada ou alterada
 	 */
@@ -47,7 +47,11 @@ public class DoencaService {
 	}
 	
 	
-	
+	/**
+	 * Metodo para atualizar uma doença na base de dados
+	 * @param alterDoenca
+	 * @return ResponseEntity com o status HTTP da requisição e a nova doença alterada
+	 */
 	public ResponseEntity<Doenca> updateDoenca(Doenca alterDoenca) {
 		if (alterDoenca.getNome().isBlank()) {
 			return ResponseEntity.status(400).build();

@@ -26,17 +26,17 @@ public class UsuarioController {
 	private UsuarioService usuarioService;
 	
 	@GetMapping
-	public ResponseEntity<List<Usuario>> findAll() {
+	public ResponseEntity<List<Usuario>> getAll() {
 		return usuarioService.findAll();
 	}
 	
 	@GetMapping(path = "/buscar", params = "id")
-	public ResponseEntity<Usuario> findById(@Valid @RequestParam long id) {
+	public ResponseEntity<Usuario> getById(@Valid @RequestParam long id) {
 		return usuarioService.findById(id);
 	}
 		
 	@GetMapping(path = "/buscar", params = "email")
-	public ResponseEntity<Usuario> findByEmail(@Valid @RequestParam String email) {
+	public ResponseEntity<Usuario> getByEmail(@Valid @RequestParam String email) {
 		return usuarioService.findByEmail(email);
 	}
 	
@@ -46,12 +46,12 @@ public class UsuarioController {
 	}
 	
 	@PostMapping(path = "/cadastrar")
-	public ResponseEntity<Usuario> saveUsuario(@Valid @RequestBody Usuario usuario) {
+	public ResponseEntity<Usuario> postUsuario(@Valid @RequestBody Usuario usuario) {
 		return usuarioService.saveUsuario(usuario);
 	}
 	
 	@PutMapping(path = "/alterar")
-	public ResponseEntity<Usuario> updateUsuario(@Valid @RequestBody Usuario usuario) {
+	public ResponseEntity<Usuario> putUsuario(@Valid @RequestBody Usuario usuario) {
 		return usuarioService.updateUsuario(usuario);
 	}
 	

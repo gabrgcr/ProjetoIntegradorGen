@@ -25,27 +25,27 @@ public class MedicamentoController {
 	private MedicamentoService medicamentoService;
 	
 	@GetMapping
-	public ResponseEntity<List<Medicamento>> findAll() {
+	public ResponseEntity<List<Medicamento>> getAll() {
 		return medicamentoService.findAll();
 	}
 	
 	@GetMapping(path = "/buscar", params = "id")
-	public ResponseEntity<Medicamento> findById(@Valid @RequestParam long id) {
+	public ResponseEntity<Medicamento> getById(@Valid @RequestParam long id) {
 		return medicamentoService.findById(id);
 	}
 		
 	@GetMapping(path = "/buscar", params = "nome")
-	public ResponseEntity<List<Medicamento>> findByNome(@Valid @RequestParam String nome) {
+	public ResponseEntity<List<Medicamento>> getByNome(@Valid @RequestParam String nome) {
 		return medicamentoService.findByNome(nome);
 	}
 	
 	@PostMapping(path = "/cadastrar")
-	public ResponseEntity<Medicamento> saveMedicamento(@Valid @RequestBody Medicamento medicamento) {
+	public ResponseEntity<Medicamento> postMedicamento(@Valid @RequestBody Medicamento medicamento) {
 		return medicamentoService.saveMedicamento(medicamento);
 	}
 	
 	@PutMapping(path = "/alterar")
-	public ResponseEntity<Medicamento> updateMedicamento(@Valid @RequestBody Medicamento medicamento) {
+	public ResponseEntity<Medicamento> putMedicamento(@Valid @RequestBody Medicamento medicamento) {
 		return medicamentoService.updateMedicamento(medicamento);
 	}
 	
