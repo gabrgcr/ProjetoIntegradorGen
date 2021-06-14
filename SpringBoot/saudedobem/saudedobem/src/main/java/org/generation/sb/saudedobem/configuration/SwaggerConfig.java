@@ -24,18 +24,19 @@ public class SwaggerConfig {
 				.paths(PathSelectors.any()).build().apiInfo(metadata()).useDefaultResponseMessages(false)
 				.globalResponses(HttpMethod.GET, responseMessageForGET())
 				.globalResponses(HttpMethod.POST, responseMessageForPOST())
-                .globalResponses(HttpMethod.PUT, responseMessageForPUT())
-                .globalResponses(HttpMethod.DELETE, responseMessageForDELETE());
+				.globalResponses(HttpMethod.PUT, responseMessageForPUT())
+				.globalResponses(HttpMethod.DELETE, responseMessageForDELETE());
 	}
 
 	public static ApiInfo metadata() {
-		return new ApiInfoBuilder().title("API - Saude do Bem").description("Projeto API Spring - Saude do Bem")
-				.version("0.0.1").license("Apache License Version 2.0").licenseUrl("http://localhost:8080/swagger-ui/")
+		return new ApiInfoBuilder().title("API - Saúde do Bem").description("Projeto API Spring - Saúde do Bem")
+				.version("0.1").license("Apache License Version 2.0").licenseUrl("http://localhost:8080/swagger-ui/")
 				.contact(contact()).build();
 	}
 
 	private static Contact contact() {
-		return new Contact("Grupo 3 - GB", "https://github.com/gabrgcr/ProjetoIntegradorGen", "gabriel.cerdeira@outlook.com");			
+		return new Contact("Grupo 03 - Generation Brasil", "https://github.com/gabrgcr/ProjetoIntegradorGen",
+				"gabriel.cerdeira@outlook.com");
 	}
 
 	private static List<Response> responseMessageForGET() {
@@ -50,43 +51,43 @@ public class SwaggerConfig {
 			}
 		};
 	}
-	
+
 	private static List<Response> responseMessageForPOST() {
-        return new ArrayList<Response>() {
-            private static final long serialVersionUID = 1L;
-            {
-                add(new ResponseBuilder().code("201").description("Objeto Criado!").build());
-                add(new ResponseBuilder().code("202").description("Aceito!").build());
-                add(new ResponseBuilder().code("400").description("Requisição Incorreta!").build());
-                add(new ResponseBuilder().code("401").description("Sem Autorização!").build());
-                add(new ResponseBuilder().code("406").description("Negado!").build());
-                add(new ResponseBuilder().code("409").description("Conflito!").build());
-                add(new ResponseBuilder().code("500").description("Erro!").build());
-            }
-        };
-    }
+		return new ArrayList<Response>() {
+			private static final long serialVersionUID = 1L;
+			{
+				add(new ResponseBuilder().code("201").description("Objeto Criado!").build());
+				add(new ResponseBuilder().code("202").description("Aceito!").build());
+				add(new ResponseBuilder().code("400").description("Requisição Incorreta!").build());
+				add(new ResponseBuilder().code("401").description("Sem Autorização!").build());
+				add(new ResponseBuilder().code("406").description("Negado!").build());
+				add(new ResponseBuilder().code("409").description("Conflito!").build());
+				add(new ResponseBuilder().code("500").description("Erro!").build());
+			}
+		};
+	}
 
-    private static List<Response> responseMessageForPUT() {
-        return new ArrayList<Response>() {
-            private static final long serialVersionUID = 1L;
-            {
-                add(new ResponseBuilder().code("200").description("Sucesso!").build());
-                add(new ResponseBuilder().code("400").description("Requisição Incorreta!").build());
-                add(new ResponseBuilder().code("404").description("Não Encontrado!").build());
-                add(new ResponseBuilder().code("409").description("Conflito!").build());
-                add(new ResponseBuilder().code("500").description("Erro!").build());
-            }
-        };
-    }
+	private static List<Response> responseMessageForPUT() {
+		return new ArrayList<Response>() {
+			private static final long serialVersionUID = 1L;
+			{
+				add(new ResponseBuilder().code("200").description("Sucesso!").build());
+				add(new ResponseBuilder().code("400").description("Requisição Incorreta!").build());
+				add(new ResponseBuilder().code("404").description("Não Encontrado!").build());
+				add(new ResponseBuilder().code("409").description("Conflito!").build());
+				add(new ResponseBuilder().code("500").description("Erro!").build());
+			}
+		};
+	}
 
-    private static List<Response> responseMessageForDELETE() {
-        return new ArrayList<Response>() {
-            private static final long serialVersionUID = 1L;
-            {
-                add(new ResponseBuilder().code("200").description("Sucesso!").build());
-                add(new ResponseBuilder().code("404").description("Não Encontrado!").build());
-                add(new ResponseBuilder().code("500").description("Erro!").build());
-            }
-        };
-    }
+	private static List<Response> responseMessageForDELETE() {
+		return new ArrayList<Response>() {
+			private static final long serialVersionUID = 1L;
+			{
+				add(new ResponseBuilder().code("200").description("Sucesso!").build());
+				add(new ResponseBuilder().code("404").description("Não Encontrado!").build());
+				add(new ResponseBuilder().code("500").description("Erro!").build());
+			}
+		};
+	}
 }

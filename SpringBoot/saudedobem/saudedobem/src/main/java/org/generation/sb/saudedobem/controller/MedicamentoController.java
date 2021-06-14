@@ -30,7 +30,7 @@ public class MedicamentoController {
 	}
 	
 	@GetMapping(path = "/buscar/id/{id}")
-	public ResponseEntity<Medicamento> getById(@Valid @PathVariable long id) {
+	public ResponseEntity<Medicamento> getById(@Valid @PathVariable Long id) {
 		return medicamentoService.findById(id);
 	}
 		
@@ -50,7 +50,7 @@ public class MedicamentoController {
 	}
 	
 	@DeleteMapping(path = "/deletar/id/{id}")
-	public ResponseEntity<Medicamento> deleteMedicamento(@Valid @PathVariable long id) {
+	public ResponseEntity<Medicamento> deleteMedicamento(@Valid @PathVariable Long id) {
 		return medicamentoService.deleteMedicamento(id);
 	}
 	

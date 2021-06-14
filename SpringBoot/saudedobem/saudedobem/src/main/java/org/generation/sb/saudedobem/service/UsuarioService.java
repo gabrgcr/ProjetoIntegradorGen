@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.apache.commons.codec.binary.Base64;
 import org.generation.sb.saudedobem.model.UserLogin;
 import org.generation.sb.saudedobem.model.Usuario;
+import org.generation.sb.saudedobem.model.util.TipoUsuario;
 import org.generation.sb.saudedobem.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -37,7 +38,7 @@ public class UsuarioService {
 	 * @param id
 	 * @return ResponseEntity com o status HTTP da requisição e o usuario buscado
 	 */
-	public ResponseEntity<Usuario> findById(long id) {
+	public ResponseEntity<Usuario> findById(Long id) {
 		return usuarioRepository.findById(id).map(resp -> ResponseEntity.status(200).body(resp))
 				.orElse(ResponseEntity.status(404).build());
 	}
@@ -81,14 +82,14 @@ public class UsuarioService {
 	 * @return ResponseEntity com o status HTTP da requisição com o usuario novo
 	 */
 	public ResponseEntity<Usuario> saveUsuario(Usuario novoUsuario) {
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		Optional<Usuario> emailExistente = usuarioRepository.findByEmail(novoUsuario.getEmail());
-		String tipoNulo = novoUsuario.getTipo();
+		String tipoNulo = novoUsuario.getTipo().toString();
 		if (tipoNulo.isEmpty()) {
-			novoUsuario.setTipo("Cliente");
+			novoUsuario.setTipo(TipoUsuario.Cliente);
 		}
 		
 		if (emailExistente.isEmpty()) {
-			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 			novoUsuario.setSenha(encoder.encode(novoUsuario.getSenha()));
 			return ResponseEntity.status(201).body(usuarioRepository.save(novoUsuario));
 		} else {
@@ -103,24 +104,23 @@ public class UsuarioService {
 	 * @return ResponseEntity com o status HTTP com o alteração do email ou de outro campo
 	 */
 	public ResponseEntity<Usuario> updateUsuario(Usuario alterUsuario) {
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		Optional<Usuario> emailExiste = usuarioRepository.findByEmail(alterUsuario.getEmail());
 		List<Usuario> emailPertenceId = usuarioRepository.findByEmailAndId(alterUsuario.getEmail(), alterUsuario.getId());
-		String tipoNulo = alterUsuario.getTipo();
+		String tipoNulo = alterUsuario.getTipo().toString();
 		if (tipoNulo.isEmpty()) {
-			alterUsuario.setTipo("Cliente");
+			alterUsuario.setTipo(TipoUsuario.Cliente);
 		}
 		
 		if (emailPertenceId.isEmpty()){
-			// Caso o email nao pertence ao usuario atual
 			if(emailExiste.isEmpty()) {
-				// Caso o email nao exista
+				alterUsuario.setSenha(encoder.encode(alterUsuario.getSenha()));
 				return ResponseEntity.status(200).body(usuarioRepository.save(alterUsuario));
 			} else {
-				//Caso o email exista em outro usuario
 				return ResponseEntity.status(409).build();
 			}
 		} else {
-			// Altera qualquer atributo mantendo o email
+			alterUsuario.setSenha(encoder.encode(alterUsuario.getSenha()));
 			return ResponseEntity.status(200).body(usuarioRepository.save(alterUsuario));
 		}
 	}
@@ -130,7 +130,7 @@ public class UsuarioService {
 	 * @param id
 	 * @return ResponseEntity com o status HTTP da requisição
 	 */
-	public ResponseEntity<Usuario> deleteUsuario(long id) {	
+	public ResponseEntity<Usuario> deleteUsuario(Long id) {	
 		if (usuarioRepository.existsById(id)) {
 			usuarioRepository.deleteById(id);
 		} else {

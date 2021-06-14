@@ -31,7 +31,7 @@ public class UsuarioController {
 	}
 	
 	@GetMapping(path = "/buscar/id/{id}")
-	public ResponseEntity<Usuario> getById(@Valid @PathVariable long id) {
+	public ResponseEntity<Usuario> getById(@Valid @PathVariable Long id) {
 		return usuarioService.findById(id);
 	}
 		
@@ -56,7 +56,7 @@ public class UsuarioController {
 	}
 	
 	@DeleteMapping(path = "/deletar/id/{id}")
-	public ResponseEntity<Usuario> deleteUsuario(@Valid @PathVariable long id) {
+	public ResponseEntity<Usuario> deleteUsuario(@Valid @PathVariable Long id) {
 		return usuarioService.deleteUsuario(id);
 	}
 }

@@ -1,7 +1,8 @@
 package org.generation.sb.saudedobem.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -9,6 +10,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.generation.sb.saudedobem.model.util.TipoUsuario;
 
 @Entity
 @Table(name = "tb_usuario")
@@ -18,29 +21,25 @@ public class Usuario {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotNull
 	@NotBlank
 	@Size(max = 255)
 	private String nome;
 	
-	@NotNull
 	@NotBlank
 	@Size(max = 50)
 	private String apelido;
 	
-	@NotNull
 	@NotBlank
 	@Size(min = 6, max = 100)
 	private String email;
 	
-	@NotNull
 	@NotBlank
 	@Size(min = 5, max = 255)
 	private String senha;
 	
 	@NotNull
-	@Column(columnDefinition = "ENUM('Administrador','Cliente')")
-	private String tipo;
+	@Enumerated(EnumType.ORDINAL) 
+	private TipoUsuario tipo;
 
 	public Long getId() {
 		return id;
@@ -82,13 +81,12 @@ public class Usuario {
 		this.senha = senha;
 	}
 
-	public String getTipo() {
+	public TipoUsuario getTipo() {
 		return tipo;
 	}
 
-	public void setTipo(String tipo) {
+	public void setTipo(TipoUsuario tipo) {
 		this.tipo = tipo;
 	}
-
 
 }
