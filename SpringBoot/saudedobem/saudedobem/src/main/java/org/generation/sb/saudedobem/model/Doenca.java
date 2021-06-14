@@ -1,5 +1,6 @@
 package org.generation.sb.saudedobem.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -9,8 +10,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "tb_doenca")
@@ -18,28 +22,31 @@ public class Doenca {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 
 	@NotNull
+	@NotBlank
 	@Size(max = 100)
 	private String nome;
 
 	@NotNull
+	@NotBlank
 	@Size(max = 255)
 	private String descricao;
 
 	@NotNull
-	@Column(columnDefinition = "TINYINT")
-	private String transmissivel;
+	@Column(columnDefinition = "TINYINT(1)")
+	private Boolean transmissivel;
 
-	@ManyToMany(mappedBy = "medicamentoDoenca")
-	private List<Medicamento> medicamento;
+	@ManyToMany(mappedBy = "doencas")
+	@JsonIgnoreProperties({"vendidos", "doencas"})
+	private List<Medicamento> medicamentos = new ArrayList<>();
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -59,20 +66,20 @@ public class Doenca {
 		this.descricao = descricao;
 	}
 
-	public String getTransmissivel() {
+	public Boolean getTransmissivel() {
 		return transmissivel;
 	}
 
-	public void setTransmissivel(String transmissivel) {
+	public void setTransmissivel(Boolean transmissivel) {
 		this.transmissivel = transmissivel;
 	}
 
-	public List<Medicamento> getMedicamento() {
-		return medicamento;
+	public List<Medicamento> getMedicamentos() {
+		return medicamentos;
 	}
 
-	public void setMedicamento(List<Medicamento> medicamento) {
-		this.medicamento = medicamento;
+	public void setMedicamentos(List<Medicamento> medicamentos) {
+		this.medicamentos = medicamentos;
 	}
 	
 }
