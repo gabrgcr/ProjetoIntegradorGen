@@ -30,7 +30,7 @@ public class MedicamentoService{
 	 * Metodo para buscar um medicamento correspondente com o ID
 	 * @return ResponseEntity com o status HTTP da requisição e um medicamento
 	 */
-	public ResponseEntity<Medicamento> findById(long id) {
+	public ResponseEntity<Medicamento> findById(Long id) {
 		return medicamentoRepository.findById(id).map(resp -> ResponseEntity.status(200).body(resp))
 				.orElse(ResponseEntity.status(404).build());
 	}
@@ -40,7 +40,7 @@ public class MedicamentoService{
 	 * @return ResponseEntity com o status HTTP da requisição e uma lista com os medicamentos
 	 */
 	public ResponseEntity<List<Medicamento>> findByNome(String nome) {
-		List<Medicamento> listaPorNome = medicamentoRepository.findAllByNomeContaining(nome);
+		List<Medicamento> listaPorNome = medicamentoRepository.findAllByNomeContainingIgnoreCase(nome);
 		if (listaPorNome.isEmpty()) {
 			return ResponseEntity.status(204).build();
 		} else {
@@ -53,7 +53,7 @@ public class MedicamentoService{
 	 * @return ResponseEntity com o status HTTP da requisição e o novo medicamento
 	 */
 	public ResponseEntity<Medicamento> saveMedicamento(Medicamento novoMedicamento) {
-		String categoriaValida = novoMedicamento.getCategoria();
+		String categoriaValida = novoMedicamento.getCategoria().toString();
 
 		boolean valido = true;
 		
@@ -71,7 +71,6 @@ public class MedicamentoService{
 		
 		List<Medicamento> nomePertenceCategoria = medicamentoRepository
 				.findByNomeAndCategoria(novoMedicamento.getNome(), novoMedicamento.getCategoria());
-	
 		if (nomePertenceCategoria.isEmpty()){
 			return ResponseEntity.status(200).body(medicamentoRepository.save(novoMedicamento));
 				
@@ -92,16 +91,12 @@ public class MedicamentoService{
 				.findByNomeAndCategoria(alterMedicamento.getNome(), alterMedicamento.getCategoria());
 		
 		if (nomePertenceCategoriaPercenteId.isEmpty()) {
-			// Caso o nome e a categoria nao condiz com o que esta registrado nesse medicamento
 			if (nomePercenteCategoria.isEmpty()) {
-				// Caso o nome não existe em uma categoria
 				return ResponseEntity.status(200).body(medicamentoRepository.save(alterMedicamento));
 			} else {
-				// Caso o nome exista em uma categoria
 				return ResponseEntity.status(409).build();
 			}
 		} else {
-			// Caso o nome e a categoria condizem com o que esta registrado (entao podera alterar outros campos)
 			return ResponseEntity.status(200).body(medicamentoRepository.save(alterMedicamento));	
 		}
 	}
@@ -110,7 +105,7 @@ public class MedicamentoService{
 	 * Metodo para deletar um medicamento correspondente ao ID
 	 * @return ResponseEntity com o status HTTP da requisição
 	 */
-	public ResponseEntity<Medicamento> deleteMedicamento(long id) {	
+	public ResponseEntity<Medicamento> deleteMedicamento(Long id) {	
 		if (medicamentoRepository.existsById(id)) {
 			medicamentoRepository.deleteById(id);
 		} else {

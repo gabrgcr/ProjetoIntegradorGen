@@ -3,7 +3,6 @@ package org.generation.sb.saudedobem.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,18 +23,15 @@ public class Doenca {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@NotNull
 	@NotBlank
 	@Size(max = 100)
 	private String nome;
 
-	@NotNull
 	@NotBlank
 	@Size(max = 255)
 	private String descricao;
 
 	@NotNull
-	@Column(columnDefinition = "TINYINT(1)")
 	private Boolean transmissivel;
 
 	@ManyToMany(mappedBy = "doencas")
