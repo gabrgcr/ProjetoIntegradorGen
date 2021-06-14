@@ -1,20 +1,14 @@
 package org.generation.sb.saudedobem.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "tb_usuario")
@@ -47,10 +41,6 @@ public class Usuario {
 	@NotNull
 	@Column(columnDefinition = "ENUM('Administrador','Cliente')")
 	private String tipo;
-
-	@OneToMany(mappedBy = "usuario")
-	@JsonIgnoreProperties("usuario")
-	private List<Venda> compras = new ArrayList<>();
 
 	public Long getId() {
 		return id;
@@ -100,12 +90,5 @@ public class Usuario {
 		this.tipo = tipo;
 	}
 
-	public List<Venda> getCompras() {
-		return compras;
-	}
-
-	public void setCompras(List<Venda> compras) {
-		this.compras = compras;
-	}
 
 }
