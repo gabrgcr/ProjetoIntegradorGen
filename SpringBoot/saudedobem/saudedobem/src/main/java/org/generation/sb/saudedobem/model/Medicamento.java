@@ -1,6 +1,5 @@
 package org.generation.sb.saudedobem.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -11,7 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -45,9 +43,6 @@ public class Medicamento {
 	@Column(columnDefinition = "ENUM('Referência','Genérico','Similar')")
 	private String categoria;
 	
-	@OneToMany(mappedBy = "medicamento")
-	@JsonIgnoreProperties({"usuario", "medicamento", "endereco", "data"})
-	private List<Venda> vendidos = new ArrayList<>();
 	
 	@NotNull
 	@ManyToMany // É possivel deletar apenas o medicamento, sem deletar as doenças junto.
@@ -98,13 +93,6 @@ public class Medicamento {
 		this.categoria = categoria;
 	}
 
-	public List<Venda> getVendidos() {
-		return vendidos;
-	}
-
-	public void setVendidos(List<Venda> vendidos) {
-		this.vendidos = vendidos;
-	}
 
 	public List<Doenca> getDoencas() {
 		return doencas;

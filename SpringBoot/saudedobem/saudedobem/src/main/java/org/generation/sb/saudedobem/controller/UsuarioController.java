@@ -11,11 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -30,13 +30,13 @@ public class UsuarioController {
 		return usuarioService.findAll();
 	}
 	
-	@GetMapping(path = "/buscar", params = "id")
-	public ResponseEntity<Usuario> getById(@Valid @RequestParam long id) {
+	@GetMapping(path = "/buscar/id/{id}")
+	public ResponseEntity<Usuario> getById(@Valid @PathVariable long id) {
 		return usuarioService.findById(id);
 	}
 		
-	@GetMapping(path = "/buscar", params = "email")
-	public ResponseEntity<Usuario> getByEmail(@Valid @RequestParam String email) {
+	@GetMapping(path = "/buscar/email/{email}")
+	public ResponseEntity<Usuario> getByEmail(@Valid @PathVariable String email) {
 		return usuarioService.findByEmail(email);
 	}
 	
@@ -55,8 +55,8 @@ public class UsuarioController {
 		return usuarioService.updateUsuario(usuario);
 	}
 	
-	@DeleteMapping(path = "/deletar", params = "id")
-	public ResponseEntity<Usuario> deleteUsuario(@Valid @RequestParam long id) {
+	@DeleteMapping(path = "/deletar/id/{id}")
+	public ResponseEntity<Usuario> deleteUsuario(@Valid @PathVariable long id) {
 		return usuarioService.deleteUsuario(id);
 	}
 }
