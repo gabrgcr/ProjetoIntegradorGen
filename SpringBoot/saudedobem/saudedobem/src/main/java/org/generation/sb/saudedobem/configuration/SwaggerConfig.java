@@ -30,7 +30,7 @@ public class SwaggerConfig {
 
 	public static ApiInfo metadata() {
 		return new ApiInfoBuilder().title("API - Saúde do Bem").description("Projeto API Spring - Saúde do Bem")
-				.version("0.1").license("Apache License Version 2.0").licenseUrl("http://localhost:8080/swagger-ui/")
+				.version("0.2").license("Apache License Version 2.0").licenseUrl("http://localhost:8080/swagger-ui/")
 				.contact(contact()).build();
 	}
 

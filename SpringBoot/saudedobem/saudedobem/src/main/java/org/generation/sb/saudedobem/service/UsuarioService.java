@@ -69,6 +69,8 @@ public class UsuarioService {
 				
 				user.setToken(authHeader);
 				user.setNome(usuario.get().getNome());
+				user.setApelido(usuario.get().getApelido());
+				user.setTipo(usuario.get().getTipo().toString());
 				
 				return ResponseEntity.status(202).body(user);
 			}
