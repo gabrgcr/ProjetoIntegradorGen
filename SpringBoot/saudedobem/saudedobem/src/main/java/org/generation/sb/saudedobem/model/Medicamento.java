@@ -1,5 +1,6 @@
 package org.generation.sb.saudedobem.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -16,7 +17,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.generation.sb.saudedobem.model.util.MedicamentoCategoria;
+import org.generation.sb.saudedobem.model.util.MedicamentoTipo;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -35,13 +36,25 @@ public class Medicamento {
 	@NotBlank
 	@Size(max = 255)
 	private String descricao;
+	
+	@NotBlank
+	private String foto;
 
 	@NotNull
 	private Double preco;
+	
+	@NotNull
+	private Boolean receita;
+	
+	@NotNull
+	private Boolean promocao;
+	
+	@NotNull
+	private Boolean destaque;
 
 	@NotNull
 	@Enumerated(EnumType.ORDINAL) 
-	private MedicamentoCategoria categoria;
+	private MedicamentoTipo tipo;
 	
 	@NotNull
 	@ManyToMany
@@ -49,7 +62,7 @@ public class Medicamento {
 		joinColumns = @JoinColumn(name = "fk_medicamento"),
 		inverseJoinColumns = @JoinColumn(name = "fk_doenca"))
 	@JsonIgnoreProperties("medicamentos")
-	private List<Doenca> doencas;
+	private List<Doenca> doencas = new ArrayList<>();
 
 	public Long getId() {
 		return id;
@@ -83,12 +96,12 @@ public class Medicamento {
 		this.preco = preco;
 	}
 
-	public MedicamentoCategoria getCategoria() {
-		return categoria;
+	public MedicamentoTipo getTipo() {
+		return tipo;
 	}
 
-	public void setCategoria(MedicamentoCategoria categoria) {
-		this.categoria = categoria;
+	public void setTipo(MedicamentoTipo tipo) {
+		this.tipo = tipo;
 	}
 
 	public List<Doenca> getDoencas() {
@@ -97,6 +110,38 @@ public class Medicamento {
 
 	public void setDoencas(List<Doenca> doencas) {
 		this.doencas = doencas;
+	}
+
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
+
+	public Boolean getReceita() {
+		return receita;
+	}
+
+	public void setReceita(Boolean receita) {
+		this.receita = receita;
+	}
+
+	public Boolean getPromocao() {
+		return promocao;
+	}
+
+	public void setPromocao(Boolean promocao) {
+		this.promocao = promocao;
+	}
+
+	public Boolean getDestaque() {
+		return destaque;
+	}
+
+	public void setDestaque(Boolean destaque) {
+		this.destaque = destaque;
 	}
 
 }

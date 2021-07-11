@@ -35,7 +35,7 @@ public class Doenca {
 	private Boolean transmissivel;
 
 	@ManyToMany(mappedBy = "doencas")
-	@JsonIgnoreProperties({"vendidos", "doencas"})
+	@JsonIgnoreProperties("doencas")
 	private List<Medicamento> medicamentos = new ArrayList<>();
 
 	public Long getId() {

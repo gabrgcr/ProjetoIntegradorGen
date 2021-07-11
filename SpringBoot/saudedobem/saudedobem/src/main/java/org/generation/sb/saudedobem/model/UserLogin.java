@@ -4,6 +4,8 @@ import javax.validation.constraints.NotBlank;
 
 public class UserLogin {
 
+	private Long id;
+	
 	private String nome;
 	
 	private String apelido;
@@ -17,6 +19,15 @@ public class UserLogin {
 	private String token;
 	
 	private String tipo;
+	
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getNome() {
 		return nome;
