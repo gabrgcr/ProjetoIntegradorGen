@@ -29,6 +29,24 @@ public class DoencaService {
 	}
 	
 	/**
+	 * Metodo para buscar ua doença correspondente com o ID
+	 * @return ResponseEntity com o status HTTP da requisição e uma doença
+	 */
+	public ResponseEntity<Doenca> findById(Long id) {
+		return doencaRepository.findById(id).map(resp -> ResponseEntity.status(200).body(resp))
+				.orElse(ResponseEntity.status(404).build());
+	}
+	
+	/**
+	 * Metodo para buscar ua doença correspondente com o nome
+	 * @return ResponseEntity com o status HTTP da requisição e uma doença
+	 */
+	public ResponseEntity<Doenca> findByNome(String nome) {
+		return doencaRepository.findByNome(nome).map(resp -> ResponseEntity.status(200).body(resp))
+				.orElse(ResponseEntity.status(404).build());
+	}
+	
+	/**
 	 * Metodo para salvar uma doença na base de dados
 	 * @param novaDoenca
 	 * @return ResponseEntity com o status HTTP da requisição e a nova doença cadastrada ou alterada

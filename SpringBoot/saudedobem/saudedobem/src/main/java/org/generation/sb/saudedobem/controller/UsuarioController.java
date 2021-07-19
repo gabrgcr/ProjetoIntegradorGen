@@ -9,6 +9,7 @@ import org.generation.sb.saudedobem.model.Usuario;
 import org.generation.sb.saudedobem.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/usuarios")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UsuarioController {
 
 	@Autowired
@@ -30,12 +32,12 @@ public class UsuarioController {
 		return usuarioService.findAll();
 	}
 	
-	@GetMapping(path = "/buscar/id/{id}")
+	@GetMapping("/id/{id}")
 	public ResponseEntity<Usuario> getById(@Valid @PathVariable Long id) {
 		return usuarioService.findById(id);
 	}
 		
-	@GetMapping(path = "/buscar/email/{email}")
+	@GetMapping("/email/{email}")
 	public ResponseEntity<Usuario> getByEmail(@Valid @PathVariable String email) {
 		return usuarioService.findByEmail(email);
 	}
@@ -45,18 +47,19 @@ public class UsuarioController {
 		return usuarioService.login(user);
 	}
 	
-	@PostMapping(path = "/cadastrar")
+	@PostMapping("/cadastrar")
 	public ResponseEntity<Usuario> postUsuario(@Valid @RequestBody Usuario usuario) {
 		return usuarioService.saveUsuario(usuario);
 	}
 	
-	@PutMapping(path = "/alterar")
+	@PutMapping("/alterar")
 	public ResponseEntity<Usuario> putUsuario(@Valid @RequestBody Usuario usuario) {
 		return usuarioService.updateUsuario(usuario);
 	}
 	
-	@DeleteMapping(path = "/deletar/id/{id}")
+	@DeleteMapping("/deletar/{id}")
 	public ResponseEntity<Usuario> deleteUsuario(@Valid @PathVariable Long id) {
 		return usuarioService.deleteUsuario(id);
 	}
+
 }

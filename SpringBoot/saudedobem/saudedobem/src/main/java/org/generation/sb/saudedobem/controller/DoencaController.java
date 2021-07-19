@@ -8,6 +8,7 @@ import org.generation.sb.saudedobem.model.Doenca;
 import org.generation.sb.saudedobem.service.DoencaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/doencas")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class DoencaController {
 
 	@Autowired
@@ -27,6 +29,16 @@ public class DoencaController {
 	@GetMapping
 	public ResponseEntity<List<Doenca>> getAll() {
 		return doencaService.findAll();
+	}
+	
+	@GetMapping("/id/{id}")
+	public ResponseEntity<Doenca> getById(@PathVariable Long id) {
+		return doencaService.findById(id);
+	}
+	
+	@GetMapping("/nome/{nome}")
+	public ResponseEntity<Doenca> getByNome(@PathVariable String nome) {
+		return doencaService.findByNome(nome);
 	}
 
 	@PostMapping("/cadastrar")
@@ -39,7 +51,7 @@ public class DoencaController {
 		return doencaService.updateDoenca(doenca);
 	}
 	
-	@DeleteMapping(path = "/deletar/id/{id}")
+	@DeleteMapping("/deletar/{id}")
 	public ResponseEntity<Doenca> deleteDoenca(@Valid @PathVariable Long id){
 		return doencaService.deleteDoenca(id);
 	}
